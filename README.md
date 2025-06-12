@@ -59,4 +59,3 @@ This project implement APIs using Node.js, Express.js, and MySQL to manage schoo
 ---
 ### Author
 Made By [UditSaxena](https://github.com/UditSax3na)
-Checkout my [Linkedin](https://www.linkedin.com/in/uditsax3na)
