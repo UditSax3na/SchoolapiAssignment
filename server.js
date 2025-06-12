@@ -62,14 +62,15 @@ app.get('/listSchools', async (req, res) => {
 
 
 app.get('/dbStatus', (req, res) => {
-    db.ping((err) => {
+    db.getConnection((err, connection) => {
         if (err) {
-        console.error('Ping DB failed:', err);
-        return res.status(500).json({ connected: false, error: err.message });
-        } else {
-        console.log('Pinged DB successfully');
-        return res.json({ connected: true });
+            console.error('Ping DB failed:', err.message);
+            return res.status(500).json({ connected: false, error: err.message });
         }
+
+        console.log('Pinged DB successfully');
+        connection.release();
+        return res.json({ connected: true });
     });
 });
 

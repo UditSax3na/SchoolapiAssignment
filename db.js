@@ -16,8 +16,8 @@ pool.getConnection((err, connection) => {
     if (err) {
         console.error('Error connecting to the MySQL database:', err.message);
     } else {
-        console.log('✅ Connected to the MySQL database');
-        connection.release(); // release the connection back to the pool
+        console.log('Connected to the MySQL database');
+        connection.release();
     }
 });
 
