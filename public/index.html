@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>School Finder</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f9f9f9; }
+    input, button { margin: 8px 0; padding: 8px; width: 100%; box-sizing: border-box; }
+    .container { max-width: 450px; margin: auto; background: #fff; padding: 20px; box-shadow: 0 0 10px #ccc; border-radius: 8px; }
+    h2 { color: #333; }
+    .result { margin-top: 20px; }
+    hr { margin: 20px 0; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>📍 Find Nearby Schools</h2>
+    <input id="latitude" placeholder="Enter Latitude" type="number" step="any"/>
+    <input id="longitude" placeholder="Enter Longitude" type="number" step="any"/>
+    <button onclick="findSchools()">Find Schools</button>
+
+    <div class="result" id="schoolResults"></div>
+
+    <hr />
+
+    <h2>➕ Add a New School</h2>
+    <input id="schoolName" placeholder="School Name"/>
+    <input id="schoolAddress" placeholder="Address"/>
+    <input id="schoolLat" placeholder="Latitude" type="number" step="any"/>
+    <input id="schoolLng" placeholder="Longitude" type="number" step="any"/>
+    <button onclick="addSchool()">Add School</button>
+
+    <div class="result" id="addResponse"></div>
+  </div>
+
+  <script>
+    const API_BASE = "https://schoolapiassignment.onrender.com";
+
+    async function findSchools() {
+      const lat = document.getElementById('latitude').value;
+      const lng = document.getElementById('longitude').value;
+
+      const response = await fetch(`${API_BASE}/listSchools?lat=${lat}&lng=${lng}`);
+      const data = await response.json();
+
+      const resultDiv = document.getElementById('schoolResults');
+      if (data.error) {
+        resultDiv.innerHTML = `<p style="color: red;">❌ ${data.error}</p>`;
+        return;
+      }
+
+      resultDiv.innerHTML = "<h4>Nearby Schools:</h4>" + 
+        data.map(school => `
+          <div>
+            <strong>${school.name}</strong><br/>
+            ${school.address}<br/>
+            📍 ${school.latitude}, ${school.longitude}<br/>
+            📏 Distance: ${school.distance?.toFixed(2) || "N/A"} km
+          </div><hr/>
+        `).join('');
+    }
+
+    async function addSchool() {
+      const name = document.getElementById('schoolName').value;
+      const address = document.getElementById('schoolAddress').value;
+      const latitude = parseFloat(document.getElementById('schoolLat').value);
+      const longitude = parseFloat(document.getElementById('schoolLng').value);
+
+      const response = await fetch(`${API_BASE}/addSchool`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, address, latitude, longitude })
+      });
+
+      const result = await response.json();
+      const addDiv = document.getElementById('addResponse');
+
+      if (response.status === 201 || response.status === 200) {
+        addDiv.innerHTML = `<p style="color: green;">✅ School added successfully</p>`;
+      } else {
+        addDiv.innerHTML = `<p style="color: red;">❌ ${result.error || 'Failed to add school'}</p>`;
+      }
+    }
+  </script>
+</body>
+</html>

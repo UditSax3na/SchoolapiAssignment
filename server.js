@@ -2,10 +2,12 @@ require('dotenv').config();
 const express = require('express');
 const db = require('./db');
 const cors = require('cors');
+const path = require('path');
 
 const app = express();
 app.use(express.json());
 app.use(cors());
+app.use(express.static(path.join(__dirname, "public")))
 
 const PORT = process.env.PORT || 3000;
 
@@ -20,6 +22,9 @@ function isValidFloat(value) {
   return !isNaN(num) && isFinite(num);
 }
 
+app.get("/", (req,res)=>{
+    res.sendFile(path.join(__dirname, "public", "index.html"));
+});
 
 // Haversine formula for sorting by proximity
 app.get('/listSchools', async (req, res) => {

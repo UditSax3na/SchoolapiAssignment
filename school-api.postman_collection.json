@@ -1,0 +1,98 @@
+{
+  "info": {
+    "_postman_id": "b7c88c93-15f9-4e8b-8e9d-9e4a444a4d84",
+    "name": "School API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "123456789"
+  },
+  "item": [
+    {
+      "name": "Add School",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Green Valley School\",\n  \"address\": \"123 Hill Road\",\n  \"latitude\": 28.6139,\n  \"longitude\": 77.2090\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/addSchool",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["addSchool"]
+        }
+      },
+      "response": [
+        {
+          "name": "Success - School Added",
+          "originalRequest": {},
+          "status": "Created",
+          "code": 201,
+          "body": "{\n  \"message\": \"School added successfully\",\n  \"id\": 1\n}"
+        }
+      ]
+    },
+    {
+      "name": "List Nearby Schools",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/listSchools?lat=28.6139&lng=77.2090",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["listSchools"],
+          "query": [
+            {
+              "key": "lat",
+              "value": "28.6139"
+            },
+            {
+              "key": "lng",
+              "value": "77.2090"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Success - List of Schools",
+          "originalRequest": {},
+          "status": "OK",
+          "code": 200,
+          "body": "[\n  {\n    \"id\": 1,\n    \"name\": \"Green Valley School\",\n    \"address\": \"123 Hill Road\",\n    \"latitude\": 28.6139,\n    \"longitude\": 77.2090,\n    \"distance\": 0\n  }\n]"
+        }
+      ]
+    },
+    {
+      "name": "Check DB Status",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/dbStatus",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["dbStatus"]
+        }
+      },
+      "response": [
+        {
+          "name": "Success - DB Connected",
+          "originalRequest": {},
+          "status": "OK",
+          "code": 200,
+          "body": "{\n  \"connected\": true\n}"
+        }
+      ]
+    }
+  ]
+}

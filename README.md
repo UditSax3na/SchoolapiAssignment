@@ -1,4 +1,4 @@
-# School API
+# School API 
 
 ---
 
@@ -6,6 +6,7 @@
 
 This project implement APIs using Node.js, Express.js, and MySQL to manage school-related data, including locating nearby schools and adding new entries.
 
+[Link](https://schoolapiassignment.onrender.com)
 
 
 ---
@@ -36,10 +37,10 @@ This project implement APIs using Node.js, Express.js, and MySQL to manage schoo
 
     ```json
     {
-    "name": "School Name",
-    "address": "School Address",
-    "latitude": 28.6139,
-    "longitude": 77.2090
+        "name": "School Name",
+        "address": "School Address",
+        "latitude": 28.6139,
+        "longitude": 77.2090
     }
     ```
 
@@ -57,5 +58,8 @@ This project implement APIs using Node.js, Express.js, and MySQL to manage schoo
     { "connected": false, "error": "Error message" }
     ```
 ---
+
 ### Author
 Made By [UditSaxena](https://github.com/UditSax3na)
+
+---
