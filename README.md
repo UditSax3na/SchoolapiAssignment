@@ -6,9 +6,6 @@
 
 This project implement APIs using Node.js, Express.js, and MySQL to manage school-related data, including locating nearby schools and adding new entries.
 
-[Link](https://schoolapiassignment.onrender.com)
-
-
 ---
 ## Functionalities 
 - ##### Find Closest Schools
